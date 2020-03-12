@@ -1,5 +1,6 @@
 import Base from './base';
 import {DEFAULT_TIMEOUT} from '../configs/e2eConstants';
+import {triggerOnChange} from "../helpers";
 
 const SCREEN_SELECTOR = '#checkout_info_container';
 
@@ -51,11 +52,11 @@ class CheckoutPageOne extends Base {
 
         this.waitForIsDisplayed();
         this.#firstName.addValue(firstName);
-        this.triggerOnChange('[data-test="firstName"]');
+        triggerOnChange('[data-test="firstName"]');
         this.#lastName.addValue(lastName);
-        this.triggerOnChange('[data-test="lastName"]');
+        triggerOnChange('[data-test="lastName"]');
         this.#postalCode.addValue(zip);
-        this.triggerOnChange('[data-test="postalCode"]');
+        triggerOnChange('[data-test="postalCode"]');
         this.#continueCheckoutButton.click();
     }
 
@@ -65,7 +66,7 @@ class CheckoutPageOne extends Base {
      * @return {string}
      */
     getErrorMessage() {
-        this.#errorMessage.waitForVisible(DEFAULT_TIMEOUT);
+        this.#errorMessage.waitForDisplayed(DEFAULT_TIMEOUT);
 
         return this.#errorMessage.getText();
     }
@@ -74,7 +75,7 @@ class CheckoutPageOne extends Base {
      * Check if the error message is displayed
      */
     isErrorMessageDisplayed() {
-        this.#errorMessage.isVisible();
+        this.#errorMessage.isDisplayed();
     }
 
     /**
@@ -82,26 +83,6 @@ class CheckoutPageOne extends Base {
      */
     cancelCheckout() {
         this.#cancelButton.click();
-    }
-
-    /**
-     * Trigger the onChange on an element
-     *
-     * @param {string} selector the selector
-     */
-    triggerOnChange(selector) {
-        if (browser.isIOS) {
-            browser.execute((elementSelector) => {
-                let input = document.querySelector(elementSelector);
-                let lastValue = '';
-                let event = new Event('input', {bubbles: true});
-                let tracker = input._valueTracker;
-                if (tracker) {
-                    tracker.setValue(lastValue);
-                }
-                input.dispatchEvent(event);
-            }, selector);
-        }
     }
 }
 

@@ -1,5 +1,6 @@
 import Base from './base';
 import {DEFAULT_TIMEOUT} from '../configs/e2eConstants';
+import {triggerOnChange} from "../helpers";
 
 const SCREEN_SELECTOR = '#login_button_container';
 
@@ -42,9 +43,9 @@ class LoginScreen extends Base {
 
         this.waitForIsDisplayed();
         this.#username.setValue(username);
-        this.triggerOnChange('#user-name');
+        triggerOnChange('#user-name');
         this.#password.setValue(password);
-        this.triggerOnChange('#password');
+        triggerOnChange('#password');
         if (browser.isAndroid) {
             return browser.execute('document.querySelector(\'.btn_action\').click()');
         }
@@ -70,26 +71,6 @@ class LoginScreen extends Base {
      */
     isErrorMessageDisplayed() {
         return this.#errorMessage.isDisplayed();
-    }
-
-    /**
-     * Trigger the onChange on an element
-     *
-     * @param {string} selector the selector
-     */
-    triggerOnChange(selector) {
-        if (browser.isIOS) {
-            browser.execute((elementSelector) => {
-                let input = document.querySelector(elementSelector);
-                let lastValue = '';
-                let event = new Event('input', {bubbles: true});
-                let tracker = input._valueTracker;
-                if (tracker) {
-                    tracker.setValue(lastValue);
-                }
-                input.dispatchEvent(event);
-            }, selector);
-        }
     }
 }
 
