@@ -7,7 +7,7 @@ describe('Best Practices - Swag Item Details', () => {
     it('should validate that we can go back from the details to the inventory page', () => {
         // Need to start with the inventory url here to get the correct routing
         prepareEnvironment('/inventory.html');
-        browser.url('/inventory-swag.html?id=4');
+        browser.url('/inventory-item.html?id=4');
         SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here
@@ -28,7 +28,7 @@ describe('Best Practices - Swag Item Details', () => {
     it('should validate that a product can be added to a cart', () => {
         // Need to start with the inventory url here to get the correct routing
         prepareEnvironment('/inventory.html');
-        browser.url('/inventory-swag.html?id=4');
+        browser.url('/inventory-item.html?id=4');
         SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here
@@ -49,7 +49,7 @@ describe('Best Practices - Swag Item Details', () => {
     it('should validate that a product can be removed from the cart', () => {
         // Need to start with the inventory url here to get the correct routing
         prepareEnvironment('/inventory.html', [4]);
-        browser.url('/inventory-swag.html?id=4');
+        browser.url('/inventory-item.html?id=4');
         SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here

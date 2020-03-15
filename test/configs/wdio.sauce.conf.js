@@ -1,5 +1,5 @@
 const {config} = require('./wdio.shared.conf');
-const build = 'Sauce Labs test build';
+const build = `Sauce Labs test build-${new Date().getTime()}`;
 const screenResolution = '1600x1200';
 const defaultBrowserSauceOptions = {
     build,
