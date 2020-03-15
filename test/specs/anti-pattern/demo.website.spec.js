@@ -1,12 +1,12 @@
 import {LOGIN_USERS, PERSONAL_INFO} from '../../configs/e2eConstants';
-import AppHeader from '../../page-objects/appHeader';
-import Menu from '../../page-objects/menu';
-import LoginScreen from '../../page-objects/login';
-import InventoryListScreen from '../../page-objects/inventoryList';
-import CartContent from '../../page-objects/cart';
-import CheckoutComplete from '../../page-objects/checkoutComplete';
-import CheckoutPageOne from '../../page-objects/checkoutPageOne';
-import CheckoutPageTwo from '../../page-objects/checkoutPageTwo';
+import AppHeader from '../../page-objects/AppHeader';
+import Menu from '../../page-objects/Menu';
+import LoginScreen from '../../page-objects/Login';
+import InventoryListScreen from '../../page-objects/SwagOverview';
+import CartContent from '../../page-objects/CartOverview';
+import CheckoutComplete from '../../page-objects/CheckoutComplete';
+import CheckoutPageOne from '../../page-objects/CheckoutPersonalInfo';
+import CheckoutPageTwo from '../../page-objects/CheckoutOverview';
 
 describe('Anti pattern', () => {
     beforeEach(() => {
@@ -87,7 +87,7 @@ describe('Anti pattern', () => {
             true,
             'Inventory List screen was not shown',
         );
-        expect(InventoryListScreen.getSwagItemsAmount()).toEqual(
+        expect(InventoryListScreen.getAmount()).toEqual(
             6,
             'Amount of items was not equal to 6',
         );
@@ -107,8 +107,8 @@ describe('Anti pattern', () => {
             'The amount of cart items is not equal to nothing',
         );
 
-        // Add an item to the cart
-        InventoryListScreen.addSwagItemToCart(0);
+        // Add an swag to the cart
+        InventoryListScreen.addSwagToCart(0);
         expect(AppHeader.getCartAmount()).toEqual(
             '1',
             'The amount of cart items is not equal to 1',
@@ -121,7 +121,7 @@ describe('Anti pattern', () => {
 
         // Add something in the cart
         InventoryListScreen.waitForIsDisplayed();
-        InventoryListScreen.addSwagItemToCart(0);
+        InventoryListScreen.addSwagToCart(0);
 
         expect(AppHeader.getCartAmount()).toEqual('1');
 
@@ -135,7 +135,7 @@ describe('Anti pattern', () => {
         CheckoutPageOne.submitPersonalInfo(PERSONAL_INFO.STANDARD);
         CheckoutPageTwo.waitForIsDisplayed();
 
-        expect(CheckoutPageTwo.getSwagItemsAmount()).toEqual(1);
+        expect(CheckoutPageTwo.getSwagAmount()).toEqual(1);
 
         // Finish it
         CheckoutPageTwo.finishCheckout();

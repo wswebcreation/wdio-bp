@@ -1,8 +1,8 @@
-import Base from './base';
+import Base from './Base';
 
 const SCREEN_SELECTOR = '#checkout_summary_container';
 
-class CheckoutPageTwo extends Base {
+class CheckoutOverview extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -14,15 +14,15 @@ class CheckoutPageTwo extends Base {
     }
 
     title(needle) {
-        return this.item(needle).$('.inventory_item_name');
+        return this.swag(needle).$('.inventory_item_name');
     }
 
     description(needle) {
-        return this.item(needle).$('.inventory_item_desc');
+        return this.swag(needle).$('.inventory_item_desc');
     }
 
     price(needle) {
-        return this.item(needle).$('.inventory_item_price');
+        return this.swag(needle).$('.inventory_item_price');
     }
 
     get #cancelButton() {
@@ -41,7 +41,7 @@ class CheckoutPageTwo extends Base {
      * Get the amount of swag items listed on the page
      * @returns {number}
      */
-    getSwagItemsAmount() {
+    getSwagAmount() {
         return this.#items.length;
     }
 
@@ -50,9 +50,9 @@ class CheckoutPageTwo extends Base {
      *
      * @param {number|string} needle
      *
-     * @return the selected cart item
+     * @return the selected cart swag
      */
-    item(needle) {
+    swag(needle) {
         if (typeof needle === 'string') {
             return this.#items.find(cartItem => cartItem.getText().includes(needle));
         }
@@ -67,7 +67,7 @@ class CheckoutPageTwo extends Base {
      *
      * @return {string}
      */
-    getSwagItemText(needle) {
+    getSwagText(needle) {
         return `${this.title(needle).getText()} ${this.description(needle).getText()} ${this.price(needle).getText()}`;
     }
 
@@ -88,4 +88,4 @@ class CheckoutPageTwo extends Base {
     }
 }
 
-export default new CheckoutPageTwo();
+export default new CheckoutOverview();

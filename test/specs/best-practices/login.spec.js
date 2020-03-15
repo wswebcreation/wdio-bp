@@ -1,25 +1,25 @@
 import { LOGIN_USERS } from '../../configs/e2eConstants';
-import LoginScreen from '../../page-objects/login';
-import InventoryListScreen from '../../page-objects/inventoryList';
+import Login from '../../page-objects/Login';
+import SwagOverview from '../../page-objects/SwagOverview';
 
 describe('Best Practices - Login', () => {
     beforeEach(() => {
         browser.url('');
-        LoginScreen.waitForIsDisplayed();
+        Login.waitForIsDisplayed();
     });
 
     it('should be able to test loading of login page', () => {
-        expect(LoginScreen.waitForIsDisplayed()).toEqual(
+        expect(Login.waitForIsDisplayed()).toEqual(
             true,
             'Login page was not shown',
         );
     });
 
     it('should be able to login with a standard user', () => {
-        LoginScreen.signIn(LOGIN_USERS.STANDARD);
+        Login.signIn(LOGIN_USERS.STANDARD);
 
         // Wait for the inventory screen and check it
-        expect(InventoryListScreen.waitForIsDisplayed()).toEqual(
+        expect(SwagOverview.waitForIsDisplayed()).toEqual(
             true,
             'Inventory List screen was not shown',
         );
@@ -27,10 +27,10 @@ describe('Best Practices - Login', () => {
 
     it('should not be able to login with a locked user', () => {
         // Login
-        LoginScreen.signIn(LOGIN_USERS.LOCKED);
+        Login.signIn(LOGIN_USERS.LOCKED);
 
-        expect(LoginScreen.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
-        expect(LoginScreen.getErrorMessage()).toContain(
+        expect(Login.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
+        expect(Login.getErrorMessage()).toContain(
             'Epic sadface: Sorry, this user has been locked out.',
             'The error message is not as expected',
         );
@@ -38,10 +38,10 @@ describe('Best Practices - Login', () => {
 
     it('should not be able to login with an invalid username', () => {
         // Login
-        LoginScreen.signIn(LOGIN_USERS.NO_MATCH);
+        Login.signIn(LOGIN_USERS.NO_MATCH);
 
-        expect(LoginScreen.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
-        expect(LoginScreen.getErrorMessage()).toContain(
+        expect(Login.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
+        expect(Login.getErrorMessage()).toContain(
             'Epic sadface: Username and password do not match any user in this service',
             'The error message is not as expected',
         );
@@ -49,10 +49,10 @@ describe('Best Practices - Login', () => {
 
     it('should not be able to login with an invalid password', () => {
         // Login
-        LoginScreen.signIn(LOGIN_USERS.NO_MATCH);
+        Login.signIn(LOGIN_USERS.NO_MATCH);
 
-        expect(LoginScreen.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
-        expect(LoginScreen.getErrorMessage()).toContain(
+        expect(Login.isErrorMessageDisplayed()).toEqual(true, 'Error message is shown');
+        expect(Login.getErrorMessage()).toContain(
             'Epic sadface: Username and password do not match any user in this service',
             'The error message is not as expected',
         );

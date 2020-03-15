@@ -1,10 +1,10 @@
-import Base from './base';
+import Base from './Base';
 import {DEFAULT_TIMEOUT} from '../configs/e2eConstants';
 import {triggerOnChange} from "../helpers";
 
 const SCREEN_SELECTOR = '#checkout_info_container';
 
-class CheckoutPageOne extends Base {
+class CheckoutPersonalInfo extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -72,13 +72,6 @@ class CheckoutPageOne extends Base {
     }
 
     /**
-     * Check if the error message is displayed
-     */
-    isErrorMessageDisplayed() {
-        this.#errorMessage.isDisplayed();
-    }
-
-    /**
      * Cancel checkout
      */
     cancelCheckout() {
@@ -86,4 +79,4 @@ class CheckoutPageOne extends Base {
     }
 }
 
-export default new CheckoutPageOne();
+export default new CheckoutPersonalInfo();

@@ -1,10 +1,9 @@
-import CheckoutComplete from '../../page-objects/checkoutComplete';
+import CheckoutComplete from '../../page-objects/CheckoutComplete';
+import {prepareEnvironment} from "../../helpers";
 
 describe('Best Practices - Checkout - Complete', () => {
     beforeEach(() => {
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user");');
-        browser.url('/checkout-complete.html');
+        prepareEnvironment('/checkout-complete.html');
         CheckoutComplete.waitForIsDisplayed();
     });
 

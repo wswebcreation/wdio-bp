@@ -1,23 +1,21 @@
-import CartContent from '../../page-objects/cart';
-import CheckoutPageOne from '../../page-objects/checkoutPageOne';
-import CheckoutPageTwo from '../../page-objects/CheckoutPageTwo';
+import CartOverview from '../../page-objects/CartOverview';
+import CheckoutPersonalInfo from '../../page-objects/CheckoutPersonalInfo';
+import CheckoutOverview from '../../page-objects/CheckoutOverview';
 import {PERSONAL_INFO} from "../../configs/e2eConstants";
+import {prepareEnvironment} from "../../helpers";
 
 describe('Best Practices - Checkout - Personal info', () => {
     beforeEach(() => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user");');
-        browser.url('/checkout-step-one.html');
-        CheckoutPageOne.waitForIsDisplayed();
+        prepareEnvironment('/checkout-step-one.html');
+        CheckoutPersonalInfo.waitForIsDisplayed();
     });
 
     it('should validate that we can continue shopping', () => {
         // It doesn't matter which error we check here, all error states should have been tested in a UT
         // Reason for selecting this one is that it triggers multiple fields and thus triggers the state
-        CheckoutPageOne.submitPersonalInfo(PERSONAL_INFO.NO_POSTAL_CODE);
+        CheckoutPersonalInfo.submitPersonalInfo(PERSONAL_INFO.NO_POSTAL_CODE);
 
-        expect(CheckoutPageOne.waitForIsDisplayed()).toEqual(
+        expect(CheckoutPersonalInfo.waitForIsDisplayed()).toEqual(
             true,
             'Error message is shown, this is not correct',
         );
@@ -26,23 +24,23 @@ describe('Best Practices - Checkout - Personal info', () => {
     });
 
     it('should validate that we can cancel the first checkout', () => {
-        expect(CartContent.isDisplayed()).toEqual(
+        expect(CartOverview.isDisplayed()).toEqual(
             false,
             'Cart screen is already visible'
         );
 
-        CheckoutPageOne.cancelCheckout();
+        CheckoutPersonalInfo.cancelCheckout();
 
-        expect(CartContent.waitForIsDisplayed()).toEqual(
+        expect(CartOverview.waitForIsDisplayed()).toEqual(
             true,
             'Cart content screen is still not visible'
         );
     });
 
     it('should be able to continue the checkout', () => {
-        CheckoutPageOne.submitPersonalInfo(PERSONAL_INFO.STANDARD);
+        CheckoutPersonalInfo.submitPersonalInfo(PERSONAL_INFO.STANDARD);
 
-        expect(CheckoutPageTwo.waitForIsDisplayed()).toEqual(
+        expect(CheckoutOverview.waitForIsDisplayed()).toEqual(
             true,
             'Checkout page two is still not visible'
         );

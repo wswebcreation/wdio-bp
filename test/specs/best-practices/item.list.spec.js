@@ -1,20 +1,16 @@
-import AppHeader from '../../page-objects/appHeader';
-import InventoryListScreen from '../../page-objects/inventoryList';
-import SwagItemScreen from '../../page-objects/swagItem';
+import AppHeader from '../../page-objects/AppHeader';
+import SwagOverview from '../../page-objects/SwagOverview';
+import SwagDetails from '../../page-objects/SwagDetails';
+import {prepareEnvironment} from "../../helpers";
 
 describe('Best Practices - Inventory list', () => {
     beforeEach(() => {
-        // Load the url
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user")');
-
-        // Now got to the inventory page
-        browser.url('/inventory.html');
-        InventoryListScreen.waitForIsDisplayed();
+        prepareEnvironment('/inventory.html');
+        SwagOverview.waitForIsDisplayed();
     });
 
     it('should validate that all products are present', () => {
-        expect(InventoryListScreen.getSwagItemsAmount()).toEqual(
+        expect(SwagOverview.getAmount()).toEqual(
             6,
             'Amount of items was not equal to 6',
         );
@@ -23,14 +19,14 @@ describe('Best Practices - Inventory list', () => {
     it('should validate that the details of a product can be opened', () => {
         const product = 'Sauce Labs Backpack';
 
-        InventoryListScreen.openSwagItemDetails(product);
+        SwagOverview.openSwagDetails(product);
 
-        expect(SwagItemScreen.waitForIsDisplayed()).toEqual(
+        expect(SwagDetails.waitForIsDisplayed()).toEqual(
             true,
             'Swag Item detail page was not shown',
         );
 
-        expect(SwagItemScreen.getSwagItemText()).toContain(
+        expect(SwagDetails.getText()).toContain(
             product,
             'Swag Item detail page did not show the right text',
         );
@@ -42,8 +38,8 @@ describe('Best Practices - Inventory list', () => {
             'The amount of cart items is not equal to nothing',
         );
 
-        // Add an item to the cart
-        InventoryListScreen.addSwagItemToCart(0);
+        // Add an swag to the cart
+        SwagOverview.addSwagToCart(0);
 
         expect(AppHeader.getCartAmount()).toEqual(
             '1',

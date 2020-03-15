@@ -1,4 +1,4 @@
-import Base from './base';
+import Base from './Base';
 
 const SCREEN_SELECTOR = '#checkout_complete_container';
 

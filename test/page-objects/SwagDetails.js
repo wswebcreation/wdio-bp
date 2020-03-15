@@ -1,8 +1,8 @@
-import Base from './base';
+import Base from './Base';
 
 const SCREEN_SELECTOR = '.inventory_details';
 
-class SwagItemScreen extends Base {
+class SwagDetails extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -38,25 +38,25 @@ class SwagItemScreen extends Base {
     }
 
     /**
-     * Get the text of the swag item
+     * Get the text of the swag swag
      *
      * @return {string}
      */
-    getSwagItemText() {
+    getText() {
         return `${this.#title.getText()} ${this.#description.getText()} ${this.#price.getText()}`;
     }
 
     /**
      * Add a swag items to the cart
      */
-    addSwagItemToCart() {
+    addToCart() {
         this.#addButton.click();
     }
 
     /**
      * Remove a swag items from the cart
      */
-    removeSwagItemFromCart() {
+    removeFromCart() {
         this.#removeButton.click();
     }
 
@@ -68,4 +68,4 @@ class SwagItemScreen extends Base {
     }
 }
 
-export default new SwagItemScreen();
+export default new SwagDetails();

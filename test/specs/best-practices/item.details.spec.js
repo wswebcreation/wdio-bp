@@ -1,38 +1,35 @@
-import AppHeader from '../../page-objects/appHeader';
-import InventoryListScreen from '../../page-objects/inventoryList';
-import SwagItemScreen from '../../page-objects/swagItem';
+import AppHeader from '../../page-objects/AppHeader';
+import SwagOverview from '../../page-objects/SwagOverview';
+import SwagDetails from '../../page-objects/SwagDetails';
+import {prepareEnvironment} from "../../helpers";
 
 describe('Best Practices - Swag Item Details', () => {
     it('should validate that we can go back from the details to the inventory page', () => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user");');
-        // Need to add this url here to get the correct routing
-        browser.url('/inventory.html');
-        browser.url('/inventory-item.html?id=4');
-        SwagItemScreen.waitForIsDisplayed();
+        // Need to start with the inventory url here to get the correct routing
+        prepareEnvironment('/inventory.html');
+        browser.url('/inventory-swag.html?id=4');
+        SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here
-        expect(InventoryListScreen.isDisplayed()).toEqual(
+        expect(SwagOverview.isDisplayed()).toEqual(
             false,
             'Inventory screen is already visible'
         );
 
-        SwagItemScreen.goBack();
+        SwagDetails.goBack();
 
         // Actual test starts here
-        expect(InventoryListScreen.waitForIsDisplayed()).toEqual(
+        expect(SwagOverview.waitForIsDisplayed()).toEqual(
             true,
             'Inventory screen is still not visible'
         );
     });
 
     it('should validate that a product can be added to a cart', () => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user");');
-        browser.url('/inventory-item.html?id=4');
-        SwagItemScreen.waitForIsDisplayed();
+        // Need to start with the inventory url here to get the correct routing
+        prepareEnvironment('/inventory.html');
+        browser.url('/inventory-swag.html?id=4');
+        SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here
         expect(AppHeader.getCartAmount()).toEqual(
@@ -40,8 +37,8 @@ describe('Best Practices - Swag Item Details', () => {
             'The amount of cart items is not equal to nothing',
         );
 
-        // Add an item to the cart
-        SwagItemScreen.addSwagItemToCart();
+        // Add an swag to the cart
+        SwagDetails.addToCart();
 
         expect(AppHeader.getCartAmount()).toEqual(
             '1',
@@ -50,11 +47,10 @@ describe('Best Practices - Swag Item Details', () => {
     });
 
     it('should validate that a product can be removed from the cart', () => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user"); sessionStorage.setItem("cart-contents", "[4]")');
-        browser.url('/inventory-item.html?id=4');
-        SwagItemScreen.waitForIsDisplayed();
+        // Need to start with the inventory url here to get the correct routing
+        prepareEnvironment('/inventory.html', [4]);
+        browser.url('/inventory-swag.html?id=4');
+        SwagDetails.waitForIsDisplayed();
 
         // Actual test starts here
         expect(AppHeader.getCartAmount()).toEqual(
@@ -62,7 +58,7 @@ describe('Best Practices - Swag Item Details', () => {
             'The amount of cart items is not equal to 1',
         );
 
-        SwagItemScreen.removeSwagItemFromCart();
+        SwagDetails.removeFromCart();
 
         expect(AppHeader.getCartAmount()).toEqual(
             '',

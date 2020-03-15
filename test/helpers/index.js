@@ -17,3 +17,21 @@ export function triggerOnChange(selector) {
         }, selector);
     }
 }
+
+/**
+ * Prepare the environment
+ *
+ * @param {string} path
+ * @param {array} products
+ */
+export function prepareEnvironment(path, products = []) {
+    const userStorage = `sessionStorage.setItem("session-username", "standard_user");`;
+    const productStorage = products.length > 0 ? `sessionStorage.setItem("cart-contents", "[${products.toString()}]");` : '';
+
+    // Go to the domain and set the storage
+    browser.url('');
+    browser.execute(`${userStorage} ${productStorage}`);
+
+    // Now got to the page
+    browser.url(path);
+}

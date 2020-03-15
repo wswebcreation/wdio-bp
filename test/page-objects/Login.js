@@ -1,10 +1,10 @@
-import Base from './base';
+import Base from './Base';
 import {DEFAULT_TIMEOUT} from '../configs/e2eConstants';
 import {triggerOnChange} from "../helpers";
 
 const SCREEN_SELECTOR = '#login_button_container';
 
-class LoginScreen extends Base {
+class Login extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -74,4 +74,4 @@ class LoginScreen extends Base {
     }
 }
 
-export default new LoginScreen();
+export default new Login();

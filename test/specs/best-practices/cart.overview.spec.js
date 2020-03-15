@@ -1,27 +1,24 @@
-import AppHeader from '../../page-objects/appHeader';
-import InventoryListScreen from '../../page-objects/inventoryList';
-import CartContent from '../../page-objects/cart';
-import CheckoutPageOne from '../../page-objects/checkoutPageOne';
+import AppHeader from '../../page-objects/AppHeader';
+import SwagOverview from '../../page-objects/SwagOverview';
+import CartOverview from '../../page-objects/CartOverview';
+import CheckoutPersonalInfo from '../../page-objects/CheckoutPersonalInfo';
+import {prepareEnvironment} from "../../helpers";
 
 describe('Best Practices - Cart', () => {
     it('should validate that we can continue shopping', () => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user");');
-        browser.url('/cart.html');
+        prepareEnvironment('/cart.html');
 
-
-        CartContent.waitForIsDisplayed();
+        CartOverview.waitForIsDisplayed();
 
         // Actual test starts here
-        expect(InventoryListScreen.isDisplayed()).toEqual(
+        expect(SwagOverview.isDisplayed()).toEqual(
             false,
             'Inventory screen is already visible'
         );
 
-        CartContent.continueShopping();
+        CartOverview.continueShopping();
 
-        expect(InventoryListScreen.waitForIsDisplayed()).toEqual(
+        expect(SwagOverview.waitForIsDisplayed()).toEqual(
             true,
             'Inventory screen is still not visible'
         );
@@ -32,47 +29,44 @@ describe('Best Practices - Cart', () => {
         browser.url('');
         browser.execute('sessionStorage.setItem("session-username", "standard_user");');
         browser.url('/cart.html');
-        CartContent.waitForIsDisplayed();
+        CartOverview.waitForIsDisplayed();
 
         // Actual test starts here
-        expect(CheckoutPageOne.isDisplayed()).toEqual(
+        expect(CheckoutPersonalInfo.isDisplayed()).toEqual(
             false,
             'Inventory screen is already visible'
         );
 
-        CartContent.goToCheckout();
+        CartOverview.goToCheckout();
 
-        expect(CheckoutPageOne.waitForIsDisplayed()).toEqual(
+        expect(CheckoutPersonalInfo.waitForIsDisplayed()).toEqual(
             true,
             'Inventory screen is still not visible'
         );
     });
 
     it('should validate that a product can be removed from the cart', () => {
-        // Prepare the environment
-        browser.url('');
-        browser.execute('sessionStorage.setItem("session-username", "standard_user"); sessionStorage.setItem("cart-contents", "[4]")');
-        browser.url('/cart.html');
-        CartContent.waitForIsDisplayed();
+        prepareEnvironment('/cart.html', [4]);
+        CartOverview.waitForIsDisplayed();
 
         // Actual test starts here
         expect(AppHeader.getCartAmount()).toEqual(
             '1',
             'The amount of cart items is not equal to 1',
         );
-        expect(CartContent.getSwagItemsAmount()).toEqual(
+        expect(CartOverview.getSwagAmount()).toEqual(
             1,
             'The amount of items in the cart overview is not equal to 1',
         );
 
-        CartContent.removeItem(0);
+        CartOverview.removeSwag(0);
 
         expect(AppHeader.getCartAmount()).toEqual(
             '',
             'The amount of cart items is not equal to nothing',
         );
 
-        expect(CartContent.getSwagItemsAmount()).toEqual(
+        expect(CartOverview.getSwagAmount()).toEqual(
             0,
             'The amount of items in the cart overview is not equal to 1',
         );

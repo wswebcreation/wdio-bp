@@ -1,8 +1,8 @@
-import Base from './base';
+import Base from './Base';
 
 const SCREEN_SELECTOR = '#cart_contents_container';
 
-class CartContent extends Base {
+class CartOverview extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -28,7 +28,7 @@ class CartContent extends Base {
     /**
      * Get the amount of swag items in the cart
      */
-    getSwagItemsAmount() {
+    getSwagAmount() {
         return this.#items.length;
     }
 
@@ -37,9 +37,9 @@ class CartContent extends Base {
      *
      * @param {number|string} needle
      *
-     * @return the selected cart item
+     * @return the selected cart swag
      */
-    item(needle) {
+    swag(needle) {
         if (typeof needle === 'string') {
             return this.#items.find(cartItem => cartItem.getText().includes(needle));
         }
@@ -48,25 +48,25 @@ class CartContent extends Base {
     }
 
     /**
-     * Get the text of the cart item text
+     * Get the text of the cart swag text
      *
      * @param {number|string} needle
      *
      * @return {string}
      */
-    getItemText(needle) {
-        return this.item(needle).getText();
+    getSwagText(needle) {
+        return this.swag(needle).getText();
     }
 
     /**
-     * Remove an item from the cart
+     * Remove an swag from the cart
      *
      * @param {number|string} needle
      *
      * @return {void}
      */
-    removeItem(needle) {
-        return this.item(needle).$('.btn_secondary.cart_button').click();
+    removeSwag(needle) {
+        return this.swag(needle).$('.btn_secondary.cart_button').click();
     }
 
     /**
@@ -88,4 +88,4 @@ class CartContent extends Base {
     }
 }
 
-export default new CartContent();
+export default new CartOverview();

@@ -1,8 +1,8 @@
-import Base from './base';
+import Base from './Base';
 
 const SCREEN_SELECTOR = '.inventory_list';
 
-class InventoryListScreen extends Base {
+class SwagOverview extends Base {
     constructor() {
         super(SCREEN_SELECTOR);
     }
@@ -21,7 +21,7 @@ class InventoryListScreen extends Base {
      * Get the amount of swag items listed on the page
      * @returns {number}
      */
-    getSwagItemsAmount() {
+    getAmount() {
         return this.#swagItems.length;
     }
 
@@ -30,9 +30,9 @@ class InventoryListScreen extends Base {
      *
      * @param {number|string} needle
      *
-     * @return {Element[]} the selected swagItem
+     * @return {Element[]} the selected swag
      */
-    swagItem(needle) {
+    swag(needle) {
         if (typeof needle === 'string') {
             return this.#swagItems.find(swagItem => swagItem.getText().includes(needle));
         }
@@ -41,14 +41,14 @@ class InventoryListScreen extends Base {
     }
 
     /**
-     * Get the text of the swag item text
+     * Get the text of the swag swag text
      *
      * @param {number|string} needle
      *
      * @return {string}
      */
-    getSwagItemText(needle) {
-        return this.swagItem(needle).getText();
+    getSwagText(needle) {
+        return this.swag(needle).getText();
     }
 
     /**
@@ -56,8 +56,8 @@ class InventoryListScreen extends Base {
      *
      * @param {number|string} needle
      */
-    addSwagItemToCart(needle) {
-        this.swagItem(needle).$('.btn_primary.btn_inventory').click();
+    addSwagToCart(needle) {
+        this.swag(needle).$('.btn_primary.btn_inventory').click();
     }
 
     /**
@@ -65,18 +65,18 @@ class InventoryListScreen extends Base {
      *
      * @param {number|string} needle
      */
-    removeSwagItemFromCart(needle) {
-        this.swagItem(needle).$('.btn_secondary.btn_inventory').click();
+    removeSwagFromCart(needle) {
+        this.swag(needle).$('.btn_secondary.btn_inventory').click();
     }
 
     /**
-     * Open the details of a swag item
+     * Open the details of a swag swag
      *
      * @param {number|string} needle
      */
-    openSwagItemDetails(needle) {
-        this.swagItem(needle).$('.inventory_item_name').click();
+    openSwagDetails(needle) {
+        this.swag(needle).$('.inventory_item_name').click();
     }
 }
 
-export default new InventoryListScreen();
+export default new SwagOverview();
