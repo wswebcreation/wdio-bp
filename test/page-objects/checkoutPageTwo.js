@@ -2,16 +2,16 @@ import Base from './base';
 
 const SCREEN_SELECTOR = '#checkout_summary_container';
 
-class CheckoutPageTwo extends Base{
-  constructor(){
-    super(SCREEN_SELECTOR);
-  }
+class CheckoutPageTwo extends Base {
+    constructor() {
+        super(SCREEN_SELECTOR);
+    }
 
-  // Make it private so people can't mess with it
-  // Source: https://github.com/tc39/proposal-class-fields#private-fields
-  get #screen() {
-    return $(SCREEN_SELECTOR);
-  }
+    // Make it private so people can't mess with it
+    // Source: https://github.com/tc39/proposal-class-fields#private-fields
+    get #screen() {
+        return $(SCREEN_SELECTOR);
+    }
 
     title(needle) {
         return this.item(needle).$('.inventory_item_name');
@@ -25,67 +25,67 @@ class CheckoutPageTwo extends Base{
         return this.item(needle).$('.inventory_item_price');
     }
 
-  get #cancelButton(){
-    return $('.cart_cancel_link');
-  }
-
-  get #finishButton(){
-    return $('.cart_button');
-  }
-
-  get #items() {
-    return $$('.cart_item');
-  }
-
-  /**
-   * Get the amount of swag items listed on the page
-   * @returns {number}
-   */
-  getSwagItemsAmount(){
-    return this.#items.length;
-  }
-
-  /**
-   * Get a cart Item based on a search string or a number of the visible items
-   *
-   * @param {number|string} needle
-   *
-   * @return the selected cart item
-   */
-  item(needle) {
-    if (typeof needle === 'string') {
-      return this.#items.find(cartItem => cartItem.getText().includes(needle));
+    get #cancelButton() {
+        return $('.cart_cancel_link');
     }
 
-    return this.#items[ needle ];
-  }
+    get #finishButton() {
+        return $('.cart_button');
+    }
 
-  /**
-   * Get the text of the cart
-   *
-   * @param {number|string} needle
-   *
-   * @return {string}
-   */
-  getSwagItemText(needle){
-    return `${this.title(needle).getText()} ${this.description(needle).getText()} ${this.price(needle).getText()}`;
-  }
+    get #items() {
+        return $$('.cart_item');
+    }
 
-  /**
-   * Cancel checkout
-   */
-  cancelCheckout(){
-    this.#cancelButton.click();
-  }
+    /**
+     * Get the amount of swag items listed on the page
+     * @returns {number}
+     */
+    getSwagItemsAmount() {
+        return this.#items.length;
+    }
 
-  /**
-   * Finsh checkout
-   *
-   * @return {void}
-   */
-  finishCheckout(){
-    this.#finishButton.click();
-  }
+    /**
+     * Get a cart Item based on a search string or a number of the visible items
+     *
+     * @param {number|string} needle
+     *
+     * @return the selected cart item
+     */
+    item(needle) {
+        if (typeof needle === 'string') {
+            return this.#items.find(cartItem => cartItem.getText().includes(needle));
+        }
+
+        return this.#items[needle];
+    }
+
+    /**
+     * Get the text of the cart
+     *
+     * @param {number|string} needle
+     *
+     * @return {string}
+     */
+    getSwagItemText(needle) {
+        return `${this.title(needle).getText()} ${this.description(needle).getText()} ${this.price(needle).getText()}`;
+    }
+
+    /**
+     * Cancel checkout
+     */
+    cancelCheckout() {
+        this.#cancelButton.click();
+    }
+
+    /**
+     * Finsh checkout
+     *
+     * @return {void}
+     */
+    finishCheckout() {
+        this.#finishButton.click();
+    }
 }
 
 export default new CheckoutPageTwo();

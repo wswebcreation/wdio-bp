@@ -3,7 +3,7 @@ import CheckoutPageOne from '../../page-objects/checkoutPageOne';
 import CheckoutPageTwo from '../../page-objects/CheckoutPageTwo';
 import {PERSONAL_INFO} from "../../configs/e2eConstants";
 
-describe('Best Practices - Cart', () => {
+describe('Best Practices - Checkout - Personal info', () => {
     beforeEach(() => {
         // Prepare the environment
         browser.url('');
