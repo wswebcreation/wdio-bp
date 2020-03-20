@@ -4,7 +4,7 @@ const screenResolution = '1600x1200';
 const defaultBrowserSauceOptions = {
     build,
     screenResolution,
-    seleniumVersion: '3.141.59',
+    seleniumVersion: '3.141.59'
 };
 const chromeOptions = {
     'goog:chromeOptions': {
@@ -15,6 +15,10 @@ const chromeOptions = {
 // =================
 // Service Providers
 // =================
+
+console.log('process.env.SAUCE_USERNAME = ', process.env.SAUCE_USERNAME);
+console.log('process.env.SAUCE_ACCESS_KEY = ', process.env.SAUCE_ACCESS_KEY);
+
 config.user = process.env.SAUCE_USERNAME;
 config.key = process.env.SAUCE_ACCESS_KEY;
 config.region = 'eu';
@@ -27,7 +31,7 @@ config.services = ['sauce'];
 // ============
 // Capabilities
 // ============
-config.maxInstances = 100;
+config.maxInstances = 25;
 config.capabilities = [
     {
         browserName: 'googlechrome',
@@ -96,6 +100,26 @@ config.capabilities = [
             ...defaultBrowserSauceOptions,
         },
     },
+    // {
+    //     automationName: 'XCUITest',
+    //     browserName: 'safari',
+    //     deviceName: 'iPhone XS Simulator',
+    //     platformName: 'iOS',
+    //     platformVersion: '12.2',
+    //     appiumVersion: "1.13.0",
+    //     build,
+    //     tunnelIdentifier: 'MyTunnelName'
+    // },
+    // {
+    //     automationName: 'UiAutomator2',
+    //     browserName: 'chrome',
+    //     deviceName: 'Google Pixel GoogleAPI Emulator',
+    //     platformName: 'Android',
+    //     platformVersion: '8.0',
+    //     appiumVersion: "1.16.0",
+    //     build,
+    //     tunnelIdentifier: 'MyTunnelName'
+    // },
 ];
 
 exports.config = config;
