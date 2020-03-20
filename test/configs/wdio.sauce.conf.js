@@ -15,10 +15,6 @@ const chromeOptions = {
 // =================
 // Service Providers
 // =================
-
-console.log('process.env.SAUCE_USERNAME = ', process.env.SAUCE_USERNAME);
-console.log('process.env.SAUCE_ACCESS_KEY = ', process.env.SAUCE_ACCESS_KEY);
-
 config.user = process.env.SAUCE_USERNAME;
 config.key = process.env.SAUCE_ACCESS_KEY;
 config.region = 'eu';
